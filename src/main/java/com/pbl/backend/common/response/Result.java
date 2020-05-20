@@ -1,4 +1,4 @@
-package com.security.common.response;
+package com.pbl.backend.common.response;
 
 /**
  * @author: 杜东方

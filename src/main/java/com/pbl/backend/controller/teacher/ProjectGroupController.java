@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
-import com.security.common.response.Result;
+import com.pbl.backend.common.response.Result;
 /**
  * @author: 杜东方
  * @date: 2020/5/18
