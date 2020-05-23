@@ -1,9 +1,8 @@
-package com.pbl.backend.service.impl;
+package com.pbl.backend.service.common.impl;
 
 import com.pbl.backend.dao.UserDao;
 import com.pbl.backend.entity.JwtUser;
 import com.pbl.backend.entity.User;
-import com.pbl.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +26,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("用户不存在");
         }
-        user.setRole(userDao.findRoleByUserId(user.getId()));
+        //user.setRole(userDao.findRoleByUserId(user.getId()));
         return new JwtUser(user);
     }
 }

@@ -1,8 +1,8 @@
-package com.pbl.backend.service.impl;
+package com.pbl.backend.service.common.impl;
 
 import com.pbl.backend.dao.UserDao;
 import com.pbl.backend.entity.User;
-import com.pbl.backend.service.IUserService;
+import com.pbl.backend.service.common.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

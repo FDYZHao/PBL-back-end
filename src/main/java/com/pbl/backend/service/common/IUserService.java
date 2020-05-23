@@ -1,5 +1,4 @@
-package com.pbl.backend.service;
-
+package com.pbl.backend.service.common;
 import com.pbl.backend.entity.User;
 
 /**
