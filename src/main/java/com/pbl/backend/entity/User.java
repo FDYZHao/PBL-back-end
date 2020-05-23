@@ -10,17 +10,19 @@ public class User {
     public static final String TEACHER = "teacher";
     public static final String STUDENT = "student";
 
-    private Integer id;
+    private String id;
     private String username;
     private String password;
+    private String password_new;
     private Role role;
+    private String photoPath;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,5 +48,21 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getPassword_new() {
+        return password_new;
+    }
+
+    public void setPassword_new(String password_new) {
+        this.password_new = password_new;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

@@ -16,7 +16,7 @@ import java.util.Collections;
  */
 public class JwtUser implements UserDetails {
 
-    private Integer id;
+    private String id;
     private String username;
     private String password;
     private Boolean enabled;
@@ -38,11 +38,11 @@ public class JwtUser implements UserDetails {
 
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

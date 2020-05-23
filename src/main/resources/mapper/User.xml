@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--写对应的接口名-->
+<mapper namespace="com.pbl.backend.dao">
+
+    <!--void updatePasswordOFUser(User user);-->
+    <update id="updatePasswordOFUser" parameterType="com.pbl.backend.entity.User" >
+        update [user] set user(password) values(#{password_new}) where id = #{id}
+    </update>
+
+    <!--void uploadPhoto(User user);-->
+    <insert id="uploadPhoto" parameterType="com.pbl.backend.entity.User">
+        insert into [user] (photo_path) values (#{photoPath}) where id = #{id}
+    </insert>
+
+    <!--void updatePhoto(User user);-->
+    <update id="updatePhoto" parameterType="com.pbl.backend.entity.User" >
+        update [user] set user(photo_path) values(#{photoPath}) where id = #{id}
+    </update>
+
+</mapper>

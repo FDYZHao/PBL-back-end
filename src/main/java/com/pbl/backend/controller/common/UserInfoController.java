@@ -1,13 +1,17 @@
 package com.pbl.backend.controller.common;
 
+import com.pbl.backend.entity.User;
+import com.pbl.backend.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.*;
 
 import com.pbl.backend.common.response.Result;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author: 杜东方
@@ -18,23 +22,106 @@ import com.pbl.backend.common.response.Result;
 @RequestMapping("/user")
 @Api(tags = "common/UserInfoController-用户个人信息管理-管理员/教师/学生共用模块")
 public class UserInfoController {
+    UserServiceImpl userService = new UserServiceImpl();
 
-    @ApiOperation(value = "更新用户密码")
+    @ApiOperation(value = "更新用户头像")
     @PutMapping("/userProfilePic")
-    public Result updateUserProfilePic(){
-        return null;
+    public Result updateUserProfilePic(@RequestBody MultipartFile photo, @RequestBody User user) throws IOException{
+
+        //判断用户是否上传了文件
+        if(!photo.isEmpty()){
+
+            //文件上传的地址
+            String path = ResourceUtils.getURL("classpath:").getPath()+"static/upload";
+            String realPath = path.replace('/', '\\').substring(1,path.length());
+            //用于查看路径是否正确
+            System.out.println(realPath);
+
+            //获取文件的名称
+            final String fileName = photo.getOriginalFilename();
+
+            //限制文件上传的类型
+            String contentType = photo.getContentType();
+            if("image/png".equals(contentType) || "image/jpg".equals(contentType) ){
+                File file = new File(realPath,fileName);
+
+                //完成文件的上传
+                photo.transferTo(file);
+
+                String path01 = "../upload/"+fileName;
+                user.setPhotoPath(path01);
+
+                //上传数据库
+                if(userService.updatePhoto(user)){
+                    Result result = Result.SUCCESS();
+                    System.out.println("图片更新成功!");
+                    return result;
+                }
+            } else {
+                return Result.FAIL("图片格式不符合要求");
+            }
+        }
+        return Result.FAIL();
     }
 
     @ApiOperation(value = "上传用户头像")
     @PostMapping("/userProfilePic")
-    public Result addUserProfilePic(){
-        return null;
+    public Result addUserProfilePic(@RequestBody MultipartFile photo, @RequestBody User user) throws IOException {
+//        UserServiceImpl userService = new UserServiceImpl();
+        //判断用户是否上传了文件
+        if(!photo.isEmpty()){
+
+            //文件上传的地址
+            String path = ResourceUtils.getURL("classpath:").getPath()+"static/upload";
+            String realPath = path.replace('/', '\\').substring(1,path.length());
+            //用于查看路径是否正确
+            System.out.println(realPath);
+
+            //获取文件的名称
+            final String fileName = photo.getOriginalFilename();
+
+            //限制文件上传的类型
+            String contentType = photo.getContentType();
+            if("image/png".equals(contentType) || "image/jpg".equals(contentType) ){
+                File file = new File(realPath,fileName);
+
+                //完成文件的上传
+                photo.transferTo(file);
+
+                String path01 = "../upload/"+fileName;
+                user.setPhotoPath(path01);
+
+                //上传数据库
+                if(userService.upLoadPhoto(user)){
+                    Result result = Result.SUCCESS();
+                    System.out.println("图片上传成功!");
+                    return result;
+                }
+            } else {
+                return Result.FAIL("图片格式不符合要求");
+            }
+        }
+        return Result.FAIL();
     }
 
-    @ApiOperation(value = "更新用户头像")
+    @ApiOperation(value = "更新用户密码")
     @PutMapping("/pass")
-    public Result updateUserPassword(){
+    public Result updateUserPassword(@RequestBody User user){
+
+        //修改成功
+        if(userService.updatePasswordOFUser(user)){
+            return Result.SUCCESS();
+
+        }
+        return Result.FAIL();
+    }
+
+    @ApiOperation(value = "加载用户头像")
+    @RequestMapping("/photo")
+    public Result loadPhoto() throws IOException {
+
         return null;
+
     }
 
 

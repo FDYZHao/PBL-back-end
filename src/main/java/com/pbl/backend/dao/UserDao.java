@@ -15,4 +15,16 @@ public interface UserDao {
     Role findRoleByUserId(Integer id);
 
     void add(User user);
+
+    //更新用户密码
+    Integer updatePasswordOFUser(User user);
+
+    //获取用户旧密码
+    String getPassword(User user);
+
+    //上传图片路径
+    Integer uploadPhoto(User user);
+
+    //更新图片路径
+    Integer updatePhoto(User user);
 }

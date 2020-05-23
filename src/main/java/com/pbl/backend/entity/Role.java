@@ -7,7 +7,7 @@ package com.pbl.backend.entity;
  */
 public class Role {
 
-    private Integer id;
+    private String id;
     private String name;
     private String nameZh;
 
@@ -15,11 +15,11 @@ public class Role {
         this.name = roleName;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

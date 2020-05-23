@@ -10,4 +10,16 @@ import com.pbl.backend.entity.User;
 public interface IUserService {
 
     void addUser(User user);
+
+    //更新用户密码
+    boolean updatePasswordOFUser(User user);
+
+    //获取用户密码
+    String getPassword(User user);
+
+    //上传图片路径
+    boolean upLoadPhoto(User user);
+
+    //更新图片路径
+    boolean updatePhoto(User user);
 }

@@ -9,16 +9,16 @@ import java.util.List;
  */
 public class Menu {
 
-    private Integer id;
+    private String id;
     private String pattern;
     //当前路径需要具备的角色
     private List<Role> roles;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
