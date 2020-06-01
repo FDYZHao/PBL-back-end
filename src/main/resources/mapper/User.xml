@@ -6,19 +6,29 @@
 <!--写对应的接口名-->
 <mapper namespace="com.pbl.backend.dao">
 
-    <!--void updatePasswordOFUser(User user);-->
-    <update id="updatePasswordOFUser" parameterType="com.pbl.backend.entity.User" >
-        update [user] set user(password) values(#{password_new}) where id = #{id}
+    <!--String getPassword(String userId)-->
+    <select id="getPassword" parameterType="int" resultType="String">
+        select password from [user] where id = #{id}
+    </select>
+
+    <!--Integer updatePasswordOFUser(String id, String passwordNew);-->
+    <update id="updatePasswordOFUser">
+        update [user] set [user](password) values(#{1}) where id = #{0}
     </update>
 
-    <!--void uploadPhoto(User user);-->
-    <insert id="uploadPhoto" parameterType="com.pbl.backend.entity.User">
-        insert into [user] (photo_path) values (#{photoPath}) where id = #{id}
+    <!--Integer uploadPhoto(String id, String photoPath)-->
+    <insert id="uploadPhoto">
+        insert into [user] (photo_path) values (#{1}) where id = #{0}
     </insert>
 
-    <!--void updatePhoto(User user);-->
-    <update id="updatePhoto" parameterType="com.pbl.backend.entity.User" >
-        update [user] set user(photo_path) values(#{photoPath}) where id = #{id}
+    <!--void updatePhoto(String id, String photoPath);-->
+    <update id="updatePhoto">
+        update [user] set user(photo_path) values(#{1}) where id = #{0}
     </update>
+
+    <!--String getPhoto(String id)-->
+    <select id="getPhoto" parameterType="String" resultType="String">
+        select photo_path from [user] where id = #{id}
+    </select>
 
 </mapper>

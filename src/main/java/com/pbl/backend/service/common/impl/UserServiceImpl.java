@@ -30,7 +30,7 @@ public class UserServiceImpl implements IUserService {
 
         if(password_old.equals(user.getPassword_new())){
             //成功更改
-            if(userDao.updatePasswordOFUser(user) > 0){
+            if(userDao.updatePasswordOFUser(user.getId(),user.getPassword_new()) > 0){
                 return true;
             }
         }
@@ -40,13 +40,13 @@ public class UserServiceImpl implements IUserService {
     //获取用户密码
     @Override
     public String getPassword(User user) {
-        return userDao.getPassword(user);
+        return userDao.getPassword(user.getId());
     }
 
     @Override
     public boolean upLoadPhoto( User user) {
 
-        if(userDao.uploadPhoto(user)>0){
+        if(userDao.uploadPhoto(user.getId(),user.getPhotoPath())>0){
             return true;
         }
         return false;
@@ -54,9 +54,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean updatePhoto(User user) {
-        if(userDao.updatePhoto(user)>0){
+        if(userDao.updatePhoto(user.getId(),user.getPhotoPath())>0){
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String getPhotoPath(User user) {
+        String path = userDao.getPhoto(user.getId());
+        return path;
     }
 }
