@@ -1,0 +1,10 @@
+{
+  "uploadPath": {
+    "windows": "D:\\AdvancedWeb\\PJ\\ProjectFileUpload",
+    "mac": "upload",
+    "linux": "upload"
+  },
+  "file": {
+    "maxSize": "100 MB"
+  }
+}

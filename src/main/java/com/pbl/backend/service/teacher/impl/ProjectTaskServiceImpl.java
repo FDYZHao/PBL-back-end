@@ -11,21 +11,39 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectTaskServiceImpl implements IProjectTaskService {
 
-    //创建项目任务
+    /**
+     * @author: 杜东方
+     * @date: 2020/6/1
+     * @description: 创建项目任务
+     * @param:
+     * @return: boolean
+    */
     @Override
     public boolean createPjTask() {
         return false;
     }
 
-    //获取项目所有任务
+    /**
+     * @author: 杜东方
+     * @date: 2020/6/1
+     * @description: 获取项目所有任务
+     * @param: Integer projectId
+     * @return: List<ProjectTask>
+    */
     @Override
-    public void getPjAllTasks() {
+    public void getPjAllTasks(Integer projectId) {
 
     }
 
-    //根据任务Id获取项目任务
+    /**
+     * @author: 杜东方
+     * @date: 2020/6/1
+     * @description: 根据任务Id获取项目任务，包含每组的完成情况
+     * @param: Integer pjTaskId
+     * @return:
+    */
     @Override
-    public void getPjTask() {
+    public void getPjTask(Integer pjTaskId) {
 
     }
 

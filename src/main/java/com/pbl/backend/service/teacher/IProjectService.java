@@ -4,9 +4,9 @@ public interface IProjectService {
 
     boolean createProject();
 
-    void getCourseAllProjects();
+    void getCourseAllProjects(Integer courseId);
 
-    void getCourseProject();
+    void getCourseProject(Integer projectId);
 
-    boolean deleteProject();
+    boolean deleteProject(Integer projectId);
 }

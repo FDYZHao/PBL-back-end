@@ -22,21 +22,34 @@ public class ProjectServiceImpl implements IProjectService {
 
     //获取课程所有项目
     @Override
-    public void getCourseAllProjects() {
+    public void getCourseAllProjects(Integer courseId) {
 
     }
 
     //根据项目ID获取项目
     @Override
-    public void getCourseProject() {
+    public void getCourseProject(Integer projectId) {
 
     }
 
     //根据项目ID删除项目
-
     @Override
-    public boolean deleteProject() {
+    public boolean deleteProject(Integer projectId) {
         //项目不存在,删除失败
+
+        //删除项目讨论信息
+
+        //删除项目文件空间的所有信息
+
+        //删除项目任务分组信息
+
+        //删除项目分组信息
+
+        //删除项目任务信息
+
+        //删除项目学生成绩信息
+
+        //删除项目信息
 
         //项目删除成功
         return false;

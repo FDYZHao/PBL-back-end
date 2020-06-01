@@ -21,16 +21,16 @@ public class ProjectGroupController {
     IProjectGroupService projectGroupService;
 
     @ApiOperation(value = "获取该课程项目所有小组")
-    @GetMapping("/pjGroupList")
-    public Result getAllPjGroupList(){
-        projectGroupService.getPjAllGroups();
+    @GetMapping("/pjGroupList/{projectId}")
+    public Result getAllPjGroupList(@PathVariable("projectId") Integer projectId){
+        projectGroupService.getPjAllGroups(projectId);
         return Result.SUCCESS();
     }
 
     @ApiOperation(value = "获取指定项目小组信息")
-    @GetMapping("/pjGroupInfo")
-    public Result getPjGroupInfo(){
-        projectGroupService.getPjGroup();
+    @GetMapping("/pjGroupInfo/{groupId}")
+    public Result getPjGroupInfo(@PathVariable("groupId") Integer groupId){
+        projectGroupService.getPjGroup(groupId);
         return Result.SUCCESS();
     }
 

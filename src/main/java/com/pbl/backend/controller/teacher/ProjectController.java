@@ -32,23 +32,23 @@ public class ProjectController {
     }
 
     @ApiOperation(value = "获取该课程所有项目")
-    @GetMapping("/projectList")
-    public Result getAllProjectList(){
-        projectService.getCourseAllProjects();
+    @GetMapping("/projectList/{courseId}")
+    public Result getAllProjectList(@PathVariable("courseId") Integer courseId){
+        projectService.getCourseAllProjects(courseId);
         return Result.SUCCESS();
     }
 
     @ApiOperation(value = "获取指定项目信息")
-    @GetMapping("/projectInfo")
-    public Result getProjectInfo(){
-        projectService.getCourseProject();
+    @GetMapping("/projectInfo/{projectId}")
+    public Result getProjectInfo(@PathVariable("projectId") Integer projectId){
+        projectService.getCourseProject(projectId);
         return Result.SUCCESS();
     }
 
     @ApiOperation(value = "删除项目")
-    @DeleteMapping("/projectInfo")
-    public Result deleteProject(){
-        projectService.deleteProject();
+    @DeleteMapping("/projectInfo/{projectId}")
+    public Result deleteProject(@PathVariable("projectId") Integer projectId){
+        projectService.deleteProject(projectId);
         return Result.SUCCESS();
     }
 

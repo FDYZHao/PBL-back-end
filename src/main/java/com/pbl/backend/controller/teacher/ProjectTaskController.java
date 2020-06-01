@@ -29,22 +29,22 @@ public class ProjectTaskController {
     }
 
     @ApiOperation(value = "查看项目内所有任务列表")
-    @GetMapping("/pjTaskList")
-    public Result getPjTaskList(){
-        projectTaskService.getPjAllTasks();
+    @GetMapping("/pjTaskList/{projectId}")
+    public Result getPjTaskList(@PathVariable("projectId") Integer projectId){
+        projectTaskService.getPjAllTasks(projectId);
         return Result.SUCCESS();
     }
 
     @ApiOperation(value = "查看项目内指定任务具体信息，包含每个小组的任务完成情况")
-    @GetMapping("/pjTaskInfo")
-    public Result getPjTaskInfo(){
-        projectTaskService.getPjTask();
+    @GetMapping("/pjTaskInfo/{pjTaskId}")
+    public Result getPjTaskInfo(@PathVariable("pjTaskId") Integer pjTaskId){
+        projectTaskService.getPjTask(pjTaskId);
         return Result.SUCCESS();
     }
 
     @ApiOperation(value = "删除项目任务")
-    @DeleteMapping("/pjTaskInfo")
-    public Result deletePjTask(){
+    @DeleteMapping("/pjTaskInfo/{pjTaskId}")
+    public Result deletePjTask(@PathVariable("pjTaskId") Integer pjTaskId){
         projectTaskService.deletePjTask();
         return Result.SUCCESS();
     }

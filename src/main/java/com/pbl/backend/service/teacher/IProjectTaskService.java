@@ -4,9 +4,9 @@ public interface IProjectTaskService {
 
     boolean createPjTask();
 
-    void getPjAllTasks();
+    void getPjAllTasks(Integer projectId);
 
-    void getPjTask();
+    void getPjTask(Integer pjTaskId);
 
     boolean deletePjTask();
 
