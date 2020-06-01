@@ -73,9 +73,8 @@ public class JwtTokenUtil {
         catch (Exception e){
             log.error("签名失败",e);
             e.printStackTrace();
-            //throw new CustomException(ResultCode.PERMISSION_SIGNATURE_ERROR);
+            throw new CustomException(ResultCode.PERMISSION_SIGNATURE_ERROR);
         }
-        return null;
     }
 
     /**

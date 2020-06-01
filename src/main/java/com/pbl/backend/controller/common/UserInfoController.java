@@ -1,7 +1,7 @@
 package com.pbl.backend.controller.common;
 
 import com.pbl.backend.entity.User;
-import com.pbl.backend.service.impl.UserServiceImpl;
+import com.pbl.backend.service.common.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.ResourceUtils;
