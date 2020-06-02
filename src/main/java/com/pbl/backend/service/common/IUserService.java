@@ -21,4 +21,7 @@ public interface IUserService {
 
     //更新图片路径
     boolean updatePhoto(User user);
+
+    //获取图片路径
+    String getPhotoPath(User user);
 }

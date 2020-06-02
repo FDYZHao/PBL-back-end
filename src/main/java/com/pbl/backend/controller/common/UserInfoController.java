@@ -2,6 +2,7 @@ package com.pbl.backend.controller.common;
 
 import com.pbl.backend.entity.User;
 import com.pbl.backend.service.common.impl.UserServiceImpl;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.ResourceUtils;
@@ -118,9 +119,15 @@ public class UserInfoController {
 
     @ApiOperation(value = "加载用户头像")
     @RequestMapping("/photo")
-    public Result loadPhoto() throws IOException {
-
-        return null;
+    public Result loadPhoto(@RequestBody User user) throws IOException {
+        String photoPath = userService.getPhotoPath(user);
+        Result result;
+        if(photoPath != null){
+            result = Result.SUCCESS(photoPath);
+        }else {
+            result = Result.FAIL();
+        }
+        return result;
 
     }
 
