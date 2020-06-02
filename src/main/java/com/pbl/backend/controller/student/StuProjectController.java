@@ -1,5 +1,6 @@
 package com.pbl.backend.controller.student;
 
+import com.pbl.backend.entity.Project;
 import com.pbl.backend.service.student.IProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pbl.backend.common.response.Result;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author: 杜东方
@@ -26,26 +28,34 @@ public class StuProjectController {
     @ApiOperation(value = "获取该课程所有项目")
     @GetMapping("/projectList/{courseId}")
     public Result getAllProjectList(@PathVariable("courseId") Integer courseId){
-        stuProjectService.getCourseAllProjects(courseId);
-        return null;
+        List<Project> projects = stuProjectService.getCourseAllProjects(courseId);
+        return Result.SUCCESS(projects);
     }
 
     @ApiOperation(value = "获取指定项目信息")
     @GetMapping("/projectInfo/{projectId}")
     public Result getProjectInfo(@PathVariable("projectId") Integer projectId){
-        stuProjectService.getCourseProject(projectId);
-        return null;
+        Project project = stuProjectService.getCourseProject(projectId);
+        return Result.SUCCESS(project);
     }
 
     @ApiOperation(value = "加入项目")
     @PostMapping("/studentPjInfo/{projectId}/{userId}")
     public Result joinProject(@PathVariable("projectId") Integer projectId, @PathVariable("userId") String userId){
-        return null;
+        boolean result = stuProjectService.joinProject(projectId, userId);
+        if(result)
+            return Result.SUCCESS();
+        else
+            return Result.FAIL();
     }
 
     @ApiOperation(value = "退出项目")
     @DeleteMapping("/studentPjInfo/{projectId}/{userId}")
     public Result dropProject(@PathVariable("projectId") Integer projectId, @PathVariable("userId") String userId){
-        return null;
+        boolean result = stuProjectService.dropProject(projectId, userId);
+        if(result)
+            return Result.SUCCESS();
+        else
+            return Result.FAIL();
     }
 }

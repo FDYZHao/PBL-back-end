@@ -1,6 +1,10 @@
 package com.pbl.backend.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Date;
 
 /**
@@ -9,7 +13,9 @@ import java.sql.Date;
  * @Author 孟超
  * @Date 2020/6/1
  **/
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class File {
 
     private int fileId;
@@ -18,5 +24,13 @@ public class File {
     private String fileName;
     private String filePath;
     private Date uploadTime;
+
+    public File(String userId, int projectId, String fileName, String filePath){
+        this.userId = userId;
+        this.projectId = projectId;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.uploadTime = new Date(System.currentTimeMillis());
+    }
 
 }

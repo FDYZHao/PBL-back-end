@@ -1,12 +1,16 @@
 package com.pbl.backend.service.student;
 
+import com.pbl.backend.entity.GroupTask;
+
+import java.util.List;
+
 public interface IPjGroupTaskService {
 
     boolean createPjGroupTask();
 
-    void getPjGroupAllTasks(Integer groupId);
+    List<GroupTask> getPjGroupAllTasks(Integer groupId);
 
-    void getPjGroupTask();
+    GroupTask getPjGroupTask();
 
     boolean deletePjGroupTask();
 

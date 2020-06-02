@@ -1,8 +1,12 @@
 package com.pbl.backend.service.teacher;
 
+import com.pbl.backend.entity.Group;
+
+import java.util.List;
+
 public interface IProjectGroupService {
 
-    void getPjAllGroups(Integer projectId);
+    List<Group> getPjAllGroups(Integer projectId);
 
-    void getPjGroup(Integer groupId);
+    Group getPjGroup(Integer groupId);
 }

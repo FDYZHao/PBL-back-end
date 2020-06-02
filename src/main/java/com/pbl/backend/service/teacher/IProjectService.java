@@ -1,12 +1,16 @@
 package com.pbl.backend.service.teacher;
 
+import com.pbl.backend.entity.Project;
+
+import java.util.List;
+
 public interface IProjectService {
 
-    boolean createProject();
+    boolean createProject(Project project);
 
-    void getCourseAllProjects(Integer courseId);
+    List<Project> getCourseAllProjects(int courseId);
 
-    void getCourseProject(Integer projectId);
+    Project getCourseProject(int projectId);
 
-    boolean deleteProject(Integer projectId);
+    boolean deleteProject(int projectId);
 }

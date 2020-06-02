@@ -1,10 +1,14 @@
 package com.pbl.backend.service.student;
 
+import com.pbl.backend.entity.Project;
+
+import java.util.List;
+
 public interface IProjectService {
 
-    void getCourseAllProjects(Integer courseId);
+    List<Project> getCourseAllProjects(Integer courseId);
 
-    void getCourseProject(Integer projectId);
+    Project getCourseProject(Integer projectId);
 
     boolean joinProject(Integer projectId, String userId);
 

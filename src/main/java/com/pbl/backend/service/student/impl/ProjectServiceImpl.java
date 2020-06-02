@@ -1,7 +1,14 @@
 package com.pbl.backend.service.student.impl;
 
+import com.pbl.backend.dao.ProjectDao;
+import com.pbl.backend.dao.ProjectScoreDao;
+import com.pbl.backend.entity.Project;
+import com.pbl.backend.entity.ProjectScore;
 import com.pbl.backend.service.student.IProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author: 杜东方
@@ -11,6 +18,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectServiceImpl implements IProjectService {
 
+    @Autowired
+    private ProjectDao projectDao;
+    @Autowired
+    private ProjectScoreDao projectScoreDao;
+
+
     /**
      * @author:  杜东方
      * @date: 2020/6/1
@@ -19,8 +32,8 @@ public class ProjectServiceImpl implements IProjectService {
      * @return: List<Project>
     */
     @Override
-    public void getCourseAllProjects(Integer courseId) {
-
+    public List<Project> getCourseAllProjects(Integer courseId) {
+        return projectDao.getAllProject(courseId);
     }
 
     /**
@@ -31,8 +44,8 @@ public class ProjectServiceImpl implements IProjectService {
      * @return: Project
     */
     @Override
-    public void getCourseProject(Integer projectId) {
-
+    public Project getCourseProject(Integer projectId) {
+        return projectDao.getProjectById(projectId);
     }
 
     /**
@@ -44,7 +57,12 @@ public class ProjectServiceImpl implements IProjectService {
     */
     @Override
     public boolean joinProject(Integer projectId, String userId) {
-        return false;
+        ProjectScore projectScore = projectScoreDao.getPjScoreByPjIdAndStuId(projectId, userId);
+        if(projectScore != null){ //学生已经加入该项目
+            return false;
+        }
+        projectScoreDao.addStuProjectInfo(projectId, userId);
+        return true;
     }
 
     /**
@@ -56,6 +74,7 @@ public class ProjectServiceImpl implements IProjectService {
     */
     @Override
     public boolean dropProject(Integer projectId, String userId) {
-        return false;
+        projectScoreDao.deleteStuProjectInfo(projectId, userId);
+        return true;
     }
 }

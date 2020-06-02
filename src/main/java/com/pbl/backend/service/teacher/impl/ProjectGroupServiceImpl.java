@@ -1,7 +1,12 @@
 package com.pbl.backend.service.teacher.impl;
 
+import com.pbl.backend.dao.GroupDao;
+import com.pbl.backend.entity.Group;
 import com.pbl.backend.service.teacher.IProjectGroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author: 杜东方
@@ -11,6 +16,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectGroupServiceImpl implements IProjectGroupService {
 
+    @Autowired
+    private GroupDao groupDao;
+
     /**
      * @author: 杜东方
      * @date: 2020/6/1
@@ -19,8 +27,8 @@ public class ProjectGroupServiceImpl implements IProjectGroupService {
      * @return: List<Group>
      */
     @Override
-    public void getPjAllGroups(Integer projectId) {
-
+    public List<Group> getPjAllGroups(Integer projectId) {
+        return groupDao.getAllGroupsByPjId(projectId);
     }
 
     /**
@@ -31,7 +39,7 @@ public class ProjectGroupServiceImpl implements IProjectGroupService {
      * @return: Group+User
      */
     @Override
-    public void getPjGroup(Integer groupId) {
-
+    public Group getPjGroup(Integer groupId) {
+        return groupDao.getGroupByGroupId(groupId);
     }
 }

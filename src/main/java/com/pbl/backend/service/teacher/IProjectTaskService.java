@@ -1,13 +1,17 @@
 package com.pbl.backend.service.teacher;
 
+import com.pbl.backend.entity.ProjectTask;
+
+import java.util.List;
+
 public interface IProjectTaskService {
 
-    boolean createPjTask();
+    boolean createPjTask(ProjectTask projectTask);
 
-    void getPjAllTasks(Integer projectId);
+    List<ProjectTask> getPjAllTasks(Integer projectId);
 
-    void getPjTask(Integer pjTaskId);
+    ProjectTask getPjTask(Integer pjTaskId);
 
-    boolean deletePjTask();
+    boolean deletePjTask(int taskId);
 
 }

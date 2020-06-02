@@ -1,5 +1,9 @@
 package com.pbl.backend.service.student;
 
+import com.pbl.backend.entity.Group;
+
+import java.util.List;
+
 /**
  * @author: 杜东方
  * @date: 2020/6/1
@@ -7,11 +11,15 @@ package com.pbl.backend.service.student;
  */
 public interface IProjectGroupService {
 
-    void getPjAllGroups(Integer projectId);
+    List<Group> getPjAllGroups(Integer projectId);
 
-    void getPjGroup(Integer groupId);
+    Group getPjGroup(Integer groupId);
 
-    boolean joinPjGroup(Integer groupId, String userId);
+    boolean createPjGroup(int projectId, String userId, String groupName);
+
+    boolean joinPjGroup(Integer projectId, Integer groupId, String userId);
 
     boolean dropPjGroup(Integer groupId, String userId);
+
+
 }

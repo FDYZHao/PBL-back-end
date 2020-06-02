@@ -1,11 +1,14 @@
 package com.pbl.backend.controller.student;
 
 import com.pbl.backend.common.response.Result;
+import com.pbl.backend.entity.Group;
 import com.pbl.backend.service.student.IProjectGroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author: 杜东方
@@ -23,28 +26,46 @@ public class StuProjectGroupController {
     @ApiOperation(value = "获取该课程项目所有小组")
     @GetMapping("/pjGroupList/{projectId}")
     public Result getAllPjGroupList(@PathVariable("projectId") Integer projectId){
-        stuProjectGroupService.getPjAllGroups(projectId);
-        return null;
+        List<Group> groups = stuProjectGroupService.getPjAllGroups(projectId);
+        return Result.SUCCESS(groups);
     }
 
     @ApiOperation(value = "获取指定项目小组信息")
     @GetMapping("/pjGroupInfo/{groupId}")
     public Result getPjGroupInfo(@PathVariable("groupId") Integer groupId){
-        stuProjectGroupService.getPjGroup(groupId);
-        return null;
+        Group group = stuProjectGroupService.getPjGroup(groupId);
+        return Result.SUCCESS(group);
+    }
+
+    @ApiOperation(value = "创建小组")
+    @PostMapping("/pjGroupInfo/{projectId}/{userId}/{groupName}")
+    public Result getPjGroupInfo(@PathVariable("projectId") Integer projectId, @PathVariable("userId") String userId,
+                                 @PathVariable("groupName") String groupName){
+        boolean result = stuProjectGroupService.createPjGroup(projectId, userId, groupName);
+        if(result)
+            return Result.SUCCESS();
+        else
+            return Result.FAIL();
     }
 
     @ApiOperation(value = "加入项目小组")
-    @PostMapping("/studentInfo/{groupId}/{userId}")
-    public Result joinPjGroup(@PathVariable("groupId") Integer groupId, @PathVariable("userId") String userId){
-        stuProjectGroupService.joinPjGroup(groupId, userId);
-        return null;
+    @PostMapping("/studentInfo/{projectId}/{groupId}/{userId}")
+    public Result joinPjGroup(@PathVariable("projectId") Integer projectId, @PathVariable("groupId") Integer groupId,
+                              @PathVariable("userId") String userId){
+        boolean result = stuProjectGroupService.joinPjGroup(projectId, groupId, userId);
+        if(result)
+            return Result.SUCCESS();
+        else
+            return Result.FAIL();
     }
 
     @ApiOperation(value = "退出项目小组")
     @DeleteMapping("/studentInfo/{groupId}/{userId}")
     public Result dropPjGroup(@PathVariable("groupId") Integer groupId, @PathVariable("userId") String userId) {
-        stuProjectGroupService.dropPjGroup(groupId, userId);
-        return null;
+        boolean result = stuProjectGroupService.dropPjGroup(groupId, userId);
+        if(result)
+            return Result.SUCCESS();
+        else
+            return Result.FAIL();
     }
 }

@@ -1,5 +1,7 @@
 package com.pbl.backend.entity;
 
+import lombok.Data;
+
 /**
  * @ClassName Group
  * @Description
@@ -7,41 +9,19 @@ package com.pbl.backend.entity;
  * @Date 2020/6/1
  **/
 
+@Data
 public class Group {
-    private int groupId;
-    private int projectId;
+    private Integer groupId;
+    private Integer projectId;
     private String groupName;
-    private String groupHeader;
+    private String groupHeaderId;
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
+    public Group(){}
 
-    public int getGroupId() {
-        return groupId;
-    }
-
-    public int getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(int projectId) {
+    public Group(Integer projectId, String groupName, String groupHeaderId){
         this.projectId = projectId;
-    }
-
-    public String getGroupHeader() {
-        return groupHeader;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupHeader(String groupHeader) {
-        this.groupHeader = groupHeader;
-    }
-
-    public void setGroupName(String groupName) {
         this.groupName = groupName;
+        this.groupHeaderId = groupHeaderId;
     }
+
 }

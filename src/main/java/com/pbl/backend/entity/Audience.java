@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @description:
  */
 @Data
-//@ConfigurationProperties(prefix = "audience")
+@ConfigurationProperties(prefix = "audience")
 @Component
 public class Audience {
     private String clientId;

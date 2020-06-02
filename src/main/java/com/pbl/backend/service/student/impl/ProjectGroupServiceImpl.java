@@ -1,7 +1,13 @@
 package com.pbl.backend.service.student.impl;
 
+import com.pbl.backend.dao.GroupDao;
+import com.pbl.backend.dao.UserGroupDao;
+import com.pbl.backend.entity.Group;
 import com.pbl.backend.service.student.IProjectGroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author: 杜东方
@@ -11,6 +17,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectGroupServiceImpl implements IProjectGroupService {
 
+    @Autowired
+    private GroupDao groupDao;
+
+    @Autowired
+    private UserGroupDao userGroupDao;
+
     /**
      * @author: 杜东方
      * @date: 2020/6/1
@@ -19,8 +31,8 @@ public class ProjectGroupServiceImpl implements IProjectGroupService {
      * @return: List<Group>
     */
     @Override
-    public void getPjAllGroups(Integer projectId) {
-
+    public List<Group> getPjAllGroups(Integer projectId) {
+        return groupDao.getAllGroupsByPjId(projectId);
     }
 
     /**
@@ -31,8 +43,38 @@ public class ProjectGroupServiceImpl implements IProjectGroupService {
      * @return: Group+User
     */
     @Override
-    public void getPjGroup(Integer groupId) {
+    public Group getPjGroup(Integer groupId) {
+        return groupDao.getGroupByGroupId(groupId);
+    }
 
+
+    /**
+     * @author: 杜东方
+     * @date: 2020/6/2
+     * @description: 创建项目小组
+     * @param:
+     * @return:
+    */
+    @Override
+    public boolean createPjGroup(int projectId, String userId, String groupName) {
+        //判断是否已经加入某个项目小组
+        int groupId = -1;
+        groupId = userGroupDao.getGroupIdByPjIdAndUserId(projectId, userId);
+        if(groupId > 0){
+            return false;
+        }
+
+        Group group = groupDao.getGroupByPjIdAndName(projectId, groupName);
+        if(group != null){  //项目下存在同名小组
+            return false;
+        }
+        group = new Group(projectId, groupName, userId);
+        //创建项目小组信息
+        groupDao.addPjGroup(group);
+
+        //关联学生与小组信息
+        userGroupDao.addStuGroup(projectId, group.getGroupId(), userId);
+        return true;
     }
 
     /**
@@ -43,8 +85,9 @@ public class ProjectGroupServiceImpl implements IProjectGroupService {
      * @return: boolean
     */
     @Override
-    public boolean joinPjGroup(Integer groupId, String userId) {
-        return false;
+    public boolean joinPjGroup(Integer projectId, Integer groupId, String userId) {
+        int result = userGroupDao.addStuGroup(projectId, groupId, userId);
+        return result > 0;
     }
 
     /**
@@ -56,6 +99,7 @@ public class ProjectGroupServiceImpl implements IProjectGroupService {
     */
     @Override
     public boolean dropPjGroup(Integer groupId, String userId) {
-        return false;
+        int result = userGroupDao.deleteStuGroup(groupId, userId);
+        return result > 0;
     }
 }

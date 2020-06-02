@@ -1,5 +1,7 @@
 package com.pbl.backend.entity;
 
+import lombok.Data;
+
 /**
  * @ClassName Course
  * @Description
@@ -7,23 +9,9 @@ package com.pbl.backend.entity;
  * @Date 2020/6/1
  **/
 
+@Data
 public class Course {
-    private int courseId;
+    private Integer courseId;
     private String courseName;
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
-
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
 }

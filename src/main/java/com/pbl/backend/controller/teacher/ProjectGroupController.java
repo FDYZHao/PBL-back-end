@@ -1,5 +1,6 @@
 package com.pbl.backend.controller.teacher;
 
+import com.pbl.backend.entity.Group;
 import com.pbl.backend.service.teacher.IProjectGroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.pbl.backend.common.response.Result;
+
+import java.util.List;
+
 /**
  * @author: 杜东方
  * @date: 2020/5/18
@@ -23,15 +27,15 @@ public class ProjectGroupController {
     @ApiOperation(value = "获取该课程项目所有小组")
     @GetMapping("/pjGroupList/{projectId}")
     public Result getAllPjGroupList(@PathVariable("projectId") Integer projectId){
-        projectGroupService.getPjAllGroups(projectId);
-        return Result.SUCCESS();
+        List<Group> groups = projectGroupService.getPjAllGroups(projectId);
+        return Result.SUCCESS(groups);
     }
 
     @ApiOperation(value = "获取指定项目小组信息")
     @GetMapping("/pjGroupInfo/{groupId}")
     public Result getPjGroupInfo(@PathVariable("groupId") Integer groupId){
-        projectGroupService.getPjGroup(groupId);
-        return Result.SUCCESS();
+        Group group = projectGroupService.getPjGroup(groupId);
+        return Result.SUCCESS(group);
     }
 
 }

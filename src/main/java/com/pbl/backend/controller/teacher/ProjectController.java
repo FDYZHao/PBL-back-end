@@ -1,5 +1,6 @@
 package com.pbl.backend.controller.teacher;
 
+import com.pbl.backend.entity.Project;
 import com.pbl.backend.service.teacher.IProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.pbl.backend.common.response.Result;
+
+import java.util.List;
 
 /**
  * @author: 杜东方
@@ -23,8 +26,8 @@ public class ProjectController {
 
     @ApiOperation(value = "新增项目")
     @PostMapping("/projectInfo")
-    public Result createProject(){
-        boolean createResult = projectService.createProject();
+    public Result createProject(@RequestBody Project project){
+        boolean createResult = projectService.createProject(project);
         if(createResult)
             return Result.SUCCESS("课程项目创建成功");
         else
@@ -34,22 +37,25 @@ public class ProjectController {
     @ApiOperation(value = "获取该课程所有项目")
     @GetMapping("/projectList/{courseId}")
     public Result getAllProjectList(@PathVariable("courseId") Integer courseId){
-        projectService.getCourseAllProjects(courseId);
-        return Result.SUCCESS();
+        List<Project> projects = projectService.getCourseAllProjects(courseId);
+        return Result.SUCCESS(projects);
     }
 
     @ApiOperation(value = "获取指定项目信息")
     @GetMapping("/projectInfo/{projectId}")
     public Result getProjectInfo(@PathVariable("projectId") Integer projectId){
-        projectService.getCourseProject(projectId);
-        return Result.SUCCESS();
+        Project project = projectService.getCourseProject(projectId);
+        return Result.SUCCESS(project);
     }
 
     @ApiOperation(value = "删除项目")
     @DeleteMapping("/projectInfo/{projectId}")
     public Result deleteProject(@PathVariable("projectId") Integer projectId){
-        projectService.deleteProject(projectId);
-        return Result.SUCCESS();
+        boolean result = projectService.deleteProject(projectId);
+        if(result)
+            return Result.SUCCESS();
+        else
+            return Result.FAIL();
     }
 
     @ApiOperation(value = "教师评分，获取项目内所有学生参考数据(所在项目完成情况、讨论留言、小组互评)")

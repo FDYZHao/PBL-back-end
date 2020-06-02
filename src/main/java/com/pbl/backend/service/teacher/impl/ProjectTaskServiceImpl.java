@@ -1,7 +1,12 @@
 package com.pbl.backend.service.teacher.impl;
 
+import com.pbl.backend.dao.ProjectTaskDao;
+import com.pbl.backend.entity.ProjectTask;
 import com.pbl.backend.service.teacher.IProjectTaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author: 杜东方
@@ -11,6 +16,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectTaskServiceImpl implements IProjectTaskService {
 
+    @Autowired
+    private ProjectTaskDao projectTaskDao;
+
     /**
      * @author: 杜东方
      * @date: 2020/6/1
@@ -19,8 +27,13 @@ public class ProjectTaskServiceImpl implements IProjectTaskService {
      * @return: boolean
     */
     @Override
-    public boolean createPjTask() {
-        return false;
+    public boolean createPjTask(ProjectTask projectTask) {
+        ProjectTask projectTask1 = projectTaskDao.getPjTaskByPjIdAndName(projectTask.getProjectId(), projectTask.getTaskName());
+        if(projectTask1 != null){ //相同项目下存在同名任务
+            return false;
+        }
+        projectTaskDao.addProjectTask(projectTask);
+        return true;
     }
 
     /**
@@ -31,8 +44,8 @@ public class ProjectTaskServiceImpl implements IProjectTaskService {
      * @return: List<ProjectTask>
     */
     @Override
-    public void getPjAllTasks(Integer projectId) {
-
+    public List<ProjectTask> getPjAllTasks(Integer projectId) {
+        return projectTaskDao.getAllPjTasks(projectId);
     }
 
     /**
@@ -43,13 +56,14 @@ public class ProjectTaskServiceImpl implements IProjectTaskService {
      * @return:
     */
     @Override
-    public void getPjTask(Integer pjTaskId) {
-
+    public ProjectTask getPjTask(Integer pjTaskId) {
+        return projectTaskDao.getPjTaskById(pjTaskId);
     }
 
     //删除项目任务
     @Override
-    public boolean deletePjTask() {
-        return false;
+    public boolean deletePjTask(int taskId) {
+        projectTaskDao.deletePjTaskByTaskId(taskId);
+        return true;
     }
 }

@@ -1,6 +1,11 @@
 package com.pbl.backend.service.student.impl;
 
+import com.pbl.backend.dao.GroupTaskDao;
+import com.pbl.backend.entity.GroupTask;
 import com.pbl.backend.service.student.IPjGroupTaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @author: 杜东方
@@ -9,6 +14,8 @@ import com.pbl.backend.service.student.IPjGroupTaskService;
  */
 public class PjGroupTaskServiceImpl implements IPjGroupTaskService {
 
+    @Autowired
+    private GroupTaskDao groupTaskDao;
     /**
      * @author: 杜东方
      * @date: 2020/6/1
@@ -29,8 +36,8 @@ public class PjGroupTaskServiceImpl implements IPjGroupTaskService {
      * @return:
     */
     @Override
-    public void getPjGroupAllTasks(Integer groupId) {
-
+    public List<GroupTask> getPjGroupAllTasks(Integer groupId) {
+        return groupTaskDao.getAllGroupTasks(groupId);
     }
 
     /**
@@ -41,8 +48,8 @@ public class PjGroupTaskServiceImpl implements IPjGroupTaskService {
      * @return:
     */
     @Override
-    public void getPjGroupTask() {
-
+    public GroupTask getPjGroupTask() {
+        return null;
     }
 
     /**
