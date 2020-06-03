@@ -8,6 +8,7 @@ import lombok.Data;
  * @Author 孟超
  * @Date 2020/6/1
  **/
+
 @Data
 public class CourseApply {
     private int courseId;
@@ -15,6 +16,9 @@ public class CourseApply {
     private String applyResult;
     private String userId;
     private String userName;
+
+    //维护学生和apply之间的一对一关系
+    private User user;
 
     public static final String INCHECK = "0";
     public static final String AGREE = "1";

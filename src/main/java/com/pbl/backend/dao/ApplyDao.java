@@ -14,14 +14,13 @@ public interface ApplyDao {
     //教师获取退课申请
     List<CourseApply> getCourseApply(int courseId);
 
-    //更新退课申请
-    Integer updateCourseApply(int courseId, String userID, String applyResult);
-
     //从学生已选课程删除申请课程
     Integer deleteApplyCourse(int courseId);
 
     //学生查看自己退课申请
     List<CourseApply> studentGetCourseApply(String userId);
 
+    //更新退课申请
+    Integer updateApply(String userId, int courseId, String code);
 
 }

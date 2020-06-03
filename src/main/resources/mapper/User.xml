@@ -4,31 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--写对应的接口名-->
-<mapper namespace="com.pbl.backend.dao">
+<mapper namespace="com.pbl.backend.dao.UserDao">
 
     <!--String getPassword(String userId)-->
     <select id="getPassword" parameterType="int" resultType="String">
-        select password from [user] where id = #{id}
+        select password from [user] where id = #{userId}
     </select>
 
-    <!--Integer updatePasswordOFUser(String id, String passwordNew);-->
+    <!--Integer updatePasswordOFUser(String UserId, String passwordNew);-->
     <update id="updatePasswordOFUser">
-        update [user] set [user](password) values(#{1}) where id = #{0}
+        update [user] set [user](password) values(#{passwordNew}) where id = #{UserId}
     </update>
 
-    <!--Integer uploadPhoto(String id, String photoPath)-->
+    <!--Integer uploadPhoto(String UserId, String photoPath)-->
     <insert id="uploadPhoto">
-        insert into [user] (photo_path) values (#{1}) where id = #{0}
+        insert into [user] (photo_path) values (#{photoPath}) where id = #{UserId}
     </insert>
 
-    <!--void updatePhoto(String id, String photoPath);-->
+    <!--void updatePhoto(String UserId, String photoPath);-->
     <update id="updatePhoto">
-        update [user] set user(photo_path) values(#{1}) where id = #{0}
+        update [user] set user(photo_path) values(#{photoPath}) where id = #{UserId}
     </update>
 
-    <!--String getPhoto(String id)-->
+    <!--String getPhoto(String UserId)-->
     <select id="getPhoto" parameterType="String" resultType="String">
-        select photo_path from [user] where id = #{id}
+        select photo_path from [user] where id = #{UserId}
     </select>
 
 </mapper>

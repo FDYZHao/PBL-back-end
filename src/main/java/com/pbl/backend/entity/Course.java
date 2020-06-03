@@ -2,6 +2,8 @@ package com.pbl.backend.entity;
 
 import lombok.Data;
 
+import java.sql.Date;
+
 /**
  * @ClassName Course
  * @Description
@@ -12,6 +14,9 @@ import lombok.Data;
 @Data
 public class Course {
     private Integer courseId;
+    private String teacherId;
     private String courseName;
+    private Date courseStartTime;
+    private Date courseEndTime;
 
 }
