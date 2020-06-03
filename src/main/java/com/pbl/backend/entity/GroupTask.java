@@ -19,4 +19,5 @@ public class GroupTask {
     private String taskDiscribe;
     private Timestamp taskStartTime;
     private Timestamp taskEndTime;
+    private Integer isFinished;
 }

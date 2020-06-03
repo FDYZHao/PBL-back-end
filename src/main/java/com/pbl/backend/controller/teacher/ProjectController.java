@@ -1,5 +1,6 @@
 package com.pbl.backend.controller.teacher;
 
+import com.pbl.backend.common.response.ResultCode;
 import com.pbl.backend.entity.Project;
 import com.pbl.backend.service.teacher.IProjectService;
 import io.swagger.annotations.Api;
@@ -29,9 +30,9 @@ public class ProjectController {
     public Result createProject(@RequestBody Project project){
         boolean createResult = projectService.createProject(project);
         if(createResult)
-            return Result.SUCCESS("课程项目创建成功");
+            return Result.SUCCESS();
         else
-            return Result.FAIL("该课程存在同名项目,项目创建失败");
+            return new Result(ResultCode.COURSE_SAME_PROJECTNAME);
     }
 
     @ApiOperation(value = "获取该课程所有项目")
@@ -52,10 +53,7 @@ public class ProjectController {
     @DeleteMapping("/projectInfo/{projectId}")
     public Result deleteProject(@PathVariable("projectId") Integer projectId){
         boolean result = projectService.deleteProject(projectId);
-        if(result)
-            return Result.SUCCESS();
-        else
-            return Result.FAIL();
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 
     @ApiOperation(value = "教师评分，获取项目内所有学生参考数据(所在项目完成情况、讨论留言、小组互评)")

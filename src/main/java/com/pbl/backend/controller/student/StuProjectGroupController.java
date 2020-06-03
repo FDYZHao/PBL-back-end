@@ -42,10 +42,7 @@ public class StuProjectGroupController {
     public Result getPjGroupInfo(@PathVariable("projectId") Integer projectId, @PathVariable("userId") String userId,
                                  @PathVariable("groupName") String groupName){
         boolean result = stuProjectGroupService.createPjGroup(projectId, userId, groupName);
-        if(result)
-            return Result.SUCCESS();
-        else
-            return Result.FAIL();
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 
     @ApiOperation(value = "加入项目小组")
@@ -53,19 +50,13 @@ public class StuProjectGroupController {
     public Result joinPjGroup(@PathVariable("projectId") Integer projectId, @PathVariable("groupId") Integer groupId,
                               @PathVariable("userId") String userId){
         boolean result = stuProjectGroupService.joinPjGroup(projectId, groupId, userId);
-        if(result)
-            return Result.SUCCESS();
-        else
-            return Result.FAIL();
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 
     @ApiOperation(value = "退出项目小组")
     @DeleteMapping("/studentInfo/{groupId}/{userId}")
     public Result dropPjGroup(@PathVariable("groupId") Integer groupId, @PathVariable("userId") String userId) {
         boolean result = stuProjectGroupService.dropPjGroup(groupId, userId);
-        if(result)
-            return Result.SUCCESS();
-        else
-            return Result.FAIL();
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 }

@@ -20,6 +20,8 @@ public enum  ResultCode {
 
     /* 用户错误：20001-29999*/
     USER_NOT_LOGGED_IN(20001, "用户未登录，请先登录"),
+    PJTASK_GROUPTASK_ALREADY_EXISTED(20002, "该项目任务下,小组已创建同名小组任务"),
+    COURSE_SAME_PROJECTNAME(20003, "该课程存在同名项目,项目创建失败"),
 
 
     /* 权限错误：70001-79999 */

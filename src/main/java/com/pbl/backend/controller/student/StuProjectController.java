@@ -43,19 +43,13 @@ public class StuProjectController {
     @PostMapping("/studentPjInfo/{projectId}/{userId}")
     public Result joinProject(@PathVariable("projectId") Integer projectId, @PathVariable("userId") String userId){
         boolean result = stuProjectService.joinProject(projectId, userId);
-        if(result)
-            return Result.SUCCESS();
-        else
-            return Result.FAIL();
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 
     @ApiOperation(value = "退出项目")
     @DeleteMapping("/studentPjInfo/{projectId}/{userId}")
     public Result dropProject(@PathVariable("projectId") Integer projectId, @PathVariable("userId") String userId){
         boolean result = stuProjectService.dropProject(projectId, userId);
-        if(result)
-            return Result.SUCCESS();
-        else
-            return Result.FAIL();
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 }

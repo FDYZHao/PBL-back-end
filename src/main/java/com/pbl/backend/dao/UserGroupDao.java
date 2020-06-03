@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserGroupDao {
 
-    //根据项目ID删除该项目所有小组信息
+    //根据项目ID删除该项目所有小组成员信息
     int deleteGroupsByProjectId(int projectId);
 
     //学生加入小组,添加关联信息

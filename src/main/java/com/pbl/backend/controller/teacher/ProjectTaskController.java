@@ -28,10 +28,7 @@ public class ProjectTaskController {
     @PostMapping("/pjTask")
     public Result addPjTask(@RequestBody ProjectTask projectTask){
         boolean result = projectTaskService.createPjTask(projectTask);
-        if(result)
-            return Result.SUCCESS();
-        else
-            return Result.FAIL();
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 
     @ApiOperation(value = "查看项目内所有任务列表")

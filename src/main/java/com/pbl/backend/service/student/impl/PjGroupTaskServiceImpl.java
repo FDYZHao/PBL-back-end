@@ -1,6 +1,10 @@
 package com.pbl.backend.service.student.impl;
 
+import com.pbl.backend.common.response.Result;
+import com.pbl.backend.common.response.ResultCode;
+import com.pbl.backend.dao.GroupPjTaskDao;
 import com.pbl.backend.dao.GroupTaskDao;
+import com.pbl.backend.entity.GroupPjTask;
 import com.pbl.backend.entity.GroupTask;
 import com.pbl.backend.service.student.IPjGroupTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,9 @@ public class PjGroupTaskServiceImpl implements IPjGroupTaskService {
 
     @Autowired
     private GroupTaskDao groupTaskDao;
+
+    @Autowired
+    private GroupPjTaskDao groupPjTaskDao;
     /**
      * @author: 杜东方
      * @date: 2020/6/1
@@ -24,8 +31,26 @@ public class PjGroupTaskServiceImpl implements IPjGroupTaskService {
      * @return:
     */
     @Override
-    public boolean createPjGroupTask() {
-        return false;
+    public Result createPjGroupTask(GroupTask groupTask) {
+        //查看此人是否是组长
+
+        //查看是否已经创建该项目小组任务
+        GroupTask groupTask1 = groupTaskDao.getGroupTaskByGpIdAndName(groupTask.getGroupId(), groupTask.getTaskName());
+
+        if(groupTask1 != null){
+            return new Result(ResultCode.PJTASK_GROUPTASK_ALREADY_EXISTED);
+        }
+        groupTaskDao.addGroupTask(groupTask);
+
+        //更新该小组对指定项目任务所发布的小组任务数
+        GroupPjTask groupPjTask = groupPjTaskDao.getGroupPiTaskNum(groupTask.getProjectId(), groupTask.getGroupId());
+        if(groupPjTask == null){ //首次创建项目任务对应的小组任务
+            groupPjTaskDao.addGroupPjTask(groupTask.getProjectId(), groupTask.getGroupId(), 1);
+        }
+        else{
+            groupPjTaskDao.updateGroupPjTaskNum(groupTask.getProjectId(), groupTask.getGroupId(), groupPjTask.getGroupTaskNum()+1, groupPjTask.getGroupTaskFinishNum());
+        }
+        return Result.SUCCESS();
     }
 
     /**
@@ -60,8 +85,21 @@ public class PjGroupTaskServiceImpl implements IPjGroupTaskService {
      * @return:
     */
     @Override
-    public boolean deletePjGroupTask() {
-        return false;
+    public boolean deletePjGroupTask(int pjTaskId, int groupId, int groupTaskId, boolean isFinished) {
+        groupTaskDao.deleteGroupTaskByTaskId(groupTaskId);
+
+        //更新该小组与项目任务的关联信息
+        GroupPjTask groupPjTask = groupPjTaskDao.getGroupPiTaskNum(pjTaskId, groupId);
+        if(groupPjTask == null){
+            return false;
+        }
+        if(isFinished){  //删除已完成的项目小组任务
+            groupPjTaskDao.updateGroupPjTaskNum(pjTaskId, groupId, groupPjTask.getGroupTaskNum()-1, groupPjTask.getGroupTaskFinishNum()-1);
+        }
+        else{
+            groupPjTaskDao.updateGroupPjTaskNum(pjTaskId, groupId, groupPjTask.getGroupTaskNum()-1, groupPjTask.getGroupTaskFinishNum());
+        }
+        return true;
     }
 
     /**
@@ -72,7 +110,22 @@ public class PjGroupTaskServiceImpl implements IPjGroupTaskService {
      * @return: boolean
     */
     @Override
-    public boolean updateGroupTask(Integer groupId) {
-        return false;
+    public boolean updateGroupTask(int pjTaskId, int groupId, int groupTaskId) {
+        groupTaskDao.updateGruopTaskFinished(groupTaskId, 1);
+
+        //更新该小组与项目任务的关联信息
+        GroupPjTask groupPjTask = groupPjTaskDao.getGroupPiTaskNum(pjTaskId, groupId);
+        if(groupPjTask == null){
+            return false;
+        }
+
+        groupPjTaskDao.updateGroupPjTaskNum(pjTaskId, groupId, groupPjTask.getGroupTaskNum(),
+                groupPjTask.getGroupTaskFinishNum()+1);
+
+        //该项目任务小组已经完成
+        if(groupPjTask.getGroupTaskNum() == (groupPjTask.getGroupTaskFinishNum() + 1)){
+            groupPjTaskDao.updateGroupPjTaskFinished(pjTaskId, groupId, 1);
+        }
+        return true;
     }
 }

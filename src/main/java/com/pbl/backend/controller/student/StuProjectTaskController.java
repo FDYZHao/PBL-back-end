@@ -45,9 +45,8 @@ public class StuProjectTaskController {
 
     @ApiOperation(value = "发布项目小组内任务(该任务为组长发布,在教师发布任务的基础上发布)")
     @PostMapping("/pjGroupTask")
-    public Result addPjGroupTask(){
-        pjGroupTaskService.createPjGroupTask();
-        return null;
+    public Result addPjGroupTask(@RequestBody GroupTask groupTask){
+        return pjGroupTaskService.createPjGroupTask(groupTask);
     }
 
     @ApiOperation(value = "查看项目小组内所有任务列表(该任务为组长发布)")
@@ -64,10 +63,11 @@ public class StuProjectTaskController {
     }
 
     @ApiOperation(value = "删除项目小组内发布的任务")
-    @DeleteMapping("/pjGroupTaskInfo")
-    public Result deletePjGroupTask(){
-        pjGroupTaskService.deletePjGroupTask();
-        return null;
+    @DeleteMapping("/pjGroupTaskInfo/{projectTaskId}/{groupId}/{groupTaskId}/{isFinished}")
+    public Result deletePjGroupTask(@PathVariable("projectTaskId") Integer pjTaskId, @PathVariable("groupId") Integer groupId,
+                                    @PathVariable("groupTaskId") Integer groupTaskId, @PathVariable("isFinished") Boolean isFinished){
+        boolean result = pjGroupTaskService.deletePjGroupTask(pjTaskId, groupId, groupTaskId, isFinished);
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 
     @ApiOperation(value = "组长更新教师发布的项目任务完成情况")
@@ -77,9 +77,10 @@ public class StuProjectTaskController {
     }
 
     @ApiOperation(value = "组员更新组长发布的任务完成情况")
-    @PutMapping("/pjGroupTaskFinished/{groupTaskId}")
-    public Result updatePjGroupTaskFinished(@PathVariable("groupTaskId") Integer groupTaskId){
-        pjGroupTaskService.updateGroupTask(groupTaskId);
-        return null;
+    @PutMapping("/pjGroupTaskFinished/{projectTaskId}/{groupId}/{groupTaskId}")
+    public Result updatePjGroupTaskFinished(@PathVariable("projectTaskId") Integer pjTaskId, @PathVariable("groupId") Integer groupId,
+                                            @PathVariable("groupTaskId") Integer groupTaskId){
+        boolean result = pjGroupTaskService.updateGroupTask(pjTaskId, groupId, groupTaskId);
+        return result ? Result.SUCCESS() : Result.FAIL();
     }
 }
